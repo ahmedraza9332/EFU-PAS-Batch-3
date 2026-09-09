@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  --color-teal: #017683;
+  --color-teal-deep: #04525c;
+  --color-teal-tint: #e3f0f1;
+
+  --color-indigo: #2f4a8c;
+  --color-indigo-tint: #e8ecf7;
+
+  --color-violet: #7a4a9e;
+  --color-violet-tint: #f1eaf7;
+
+  --color-amber: #c2632c;
+  --color-amber-tint: #fbeee5;
+
+  --color-green: #1e7b52;
+  --color-green-tint: #e6f3ec;
+
+  --color-red: #b0322b;
+  --color-red-tint: #f9e8e7;
+
+  --color-gold: #fab219;
+  --color-gold-deep: #c88a00;
+  --color-gold-tint: #fef3dc;
+
+  --color-ink: #12292d;
+  --color-body: #3f5053;
+  --color-mute: #7b8a8c;
+  --color-faint: #a3adae;
+
+  --color-line: #e7eaea;
+  --color-hair: #eef1f1;
+  --color-canvas: #f7f7f5;
+  --color-white: #ffffff;
+}
+
+:root {
+  --teal: #017683;
+  --teal-deep: #04525c;
+  --teal-tint: #e3f0f1;
+
+  --indigo: #2f4a8c;
+  --indigo-tint: #e8ecf7;
+
+  --violet: #7a4a9e;
+  --violet-tint: #f1eaf7;
+
+  --amber: #c2632c;
+  --amber-tint: #fbeee5;
+
+  --green: #1e7b52;
+  --green-tint: #e6f3ec;
+
+  --red: #b0322b;
+  --red-tint: #f9e8e7;
+
+  --gold: #fab219;
+  --gold-deep: #c88a00;
+  --gold-tint: #fef3dc;
+
+  --ink: #12292d;
+  --body: #3f5053;
+  --mute: #7b8a8c;
+  --faint: #a3adae;
+
+  --line: #e7eaea;
+  --hair: #eef1f1;
+  --canvas: #f7f7f5;
+  --white: #ffffff;
+
+  --accent: var(--teal);
+  --tint: var(--teal-tint);
+  --accent-ink: var(--teal-deep);
+  --mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-instrument-sans), system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.font-sans {
+  font-family: var(--font-instrument-sans), system-ui, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
+}
+
+/* Reference card class matching EFU PAS V4 */
+.ref-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+/* Reference badge class */
+.ref-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 600 10px var(--mono);
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Reference button class */
+.ref-btn {
+  border: 1px solid var(--teal);
+  border-radius: 8px;
+  padding: 8px 16px;
+  background: var(--teal);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.ref-btn:hover {
+  background: var(--teal-deep);
+  border-color: var(--teal-deep);
+}
+
+.ref-btn-secondary {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.ref-btn-secondary:hover {
+  background: var(--canvas);
+  border-color: var(--mute);
+}
+
+/* Subtle custom scrollbars */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--mute); }
