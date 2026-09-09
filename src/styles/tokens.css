@@ -1,0 +1,149 @@
+/*
+  EFU PAS design system tokens.
+  Ported 1:1 from the reference dashboard (token.css v4) so every module
+  (Partners, Policies, Billing & Reconciliation, ...) renders from the same
+  palette, spacing and type scale. Do not fork these values per-module —
+  extend via new `--accent` themes instead (see .a-* below).
+*/
+:root {
+  --color-teal: #017683;
+  --color-teal-deep: #04525c;
+  --color-teal-tint: #e3f0f1;
+  --color-gold: #fab219;
+  --color-gold-deep: #c88a00;
+  --color-gold-tint: #fef3dc;
+  --color-indigo: #2f4a8c;
+  --color-indigo-tint: #e8ecf7;
+  --color-indigo-ink: #1f2f5c;
+  --color-violet: #7a4a9e;
+  --color-violet-tint: #f1eaf7;
+  --color-violet-ink: #5b3378;
+  --color-amber: #c2632c;
+  --color-amber-tint: #fbeee5;
+  --color-amber-ink: #a4531f;
+  --color-green: #1e7b52;
+  --color-green-tint: #e6f3ec;
+  --color-green-ink: #15603f;
+  --color-red: #b0322b;
+  --color-red-tint: #f9e8e7;
+  --color-red-ink: #8a2620;
+  --color-danger-body: #7a2a25;
+  --color-danger-border: #f0cfcd;
+
+  --color-ink: #12292d;
+  --color-body: #3f5053;
+  --color-mute: #7b8a8c;
+  --color-faint: #a3adae;
+  --color-line: #e7eaea;
+  --color-hair: #eef1f1;
+  --color-canvas: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-panel: #f7f9f9;
+  --color-row-hover: #f5f7f7;
+  --color-chip: #f2f4f4;
+  --color-border-input: #d4dedf;
+  --color-border-field: #e0e5e5;
+  --color-border-dashed: #c9d3d4;
+  --color-brand-sub: #5d6d70;
+  --color-brand-faint: #c3cccd;
+  --color-arrow: #b6bfc0;
+
+  --font-ui: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  --radius-mark: 3px;
+  --radius-xs: 5px;
+  --radius-sm: 7px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-card: 12px;
+  --radius-xl: 14px;
+  --radius-pill: 20px;
+  --radius-full: 50%;
+
+  --shadow-xs: 0 1px 2px rgba(20, 40, 45, .09);
+  --shadow-sm: 0 1px 2px #0b2b2f0d;
+  --shadow-md: 0 8px 22px #0b2b2f14;
+  --shadow-lg: 0 12px 28px rgba(20, 40, 45, .14);
+  --shadow-menu: 0 12px 30px #0b2b2f26;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: .15s;
+  --dur-base: .16s;
+  --dur-panel: .28s;
+
+  --layout-x: 28px;
+
+  /* default accent theme (teal); override per-section with .a-* */
+  --accent: var(--color-teal);
+  --tint: var(--color-teal-tint);
+  --accent-ink: var(--color-teal-deep);
+}
+
+.a-teal { --accent: #017683; --tint: #e3f0f1; --accent-ink: #04525c; }
+.a-indigo { --accent: #2f4a8c; --tint: #e8ecf7; --accent-ink: #1f2f5c; }
+.a-violet { --accent: #7a4a9e; --tint: #f1eaf7; --accent-ink: #5b3378; }
+.a-amber { --accent: #c2632c; --tint: #fbeee5; --accent-ink: #a4531f; }
+.a-green { --accent: #1e7b52; --tint: #e6f3ec; --accent-ink: #15603f; }
+.a-red { --accent: #b0322b; --tint: #f9e8e7; --accent-ink: #8a2620; }
+
+@theme inline {
+  --color-teal: var(--color-teal);
+  --color-teal-deep: var(--color-teal-deep);
+  --color-teal-tint: var(--color-teal-tint);
+  --color-gold: var(--color-gold);
+  --color-gold-deep: var(--color-gold-deep);
+  --color-gold-tint: var(--color-gold-tint);
+  --color-indigo: var(--color-indigo);
+  --color-indigo-tint: var(--color-indigo-tint);
+  --color-indigo-ink: var(--color-indigo-ink);
+  --color-violet: var(--color-violet);
+  --color-violet-tint: var(--color-violet-tint);
+  --color-violet-ink: var(--color-violet-ink);
+  --color-amber: var(--color-amber);
+  --color-amber-tint: var(--color-amber-tint);
+  --color-amber-ink: var(--color-amber-ink);
+  --color-green: var(--color-green);
+  --color-green-tint: var(--color-green-tint);
+  --color-green-ink: var(--color-green-ink);
+  --color-red: var(--color-red);
+  --color-red-tint: var(--color-red-tint);
+  --color-red-ink: var(--color-red-ink);
+  --color-danger-body: var(--color-danger-body);
+  --color-danger-border: var(--color-danger-border);
+
+  --color-ink: var(--color-ink);
+  --color-body: var(--color-body);
+  --color-mute: var(--color-mute);
+  --color-faint: var(--color-faint);
+  --color-line: var(--color-line);
+  --color-hair: var(--color-hair);
+  --color-canvas: var(--color-canvas);
+  --color-surface: var(--color-surface);
+  --color-panel: var(--color-panel);
+  --color-row-hover: var(--color-row-hover);
+  --color-chip: var(--color-chip);
+  --color-border-input: var(--color-border-input);
+  --color-border-field: var(--color-border-field);
+  --color-arrow: var(--color-arrow);
+  --color-brand-sub: var(--color-brand-sub);
+  --color-brand-faint: var(--color-brand-faint);
+
+  --font-ui: var(--font-ui);
+  --font-mono: var(--font-mono);
+
+  --radius-mark: var(--radius-mark);
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-card: var(--radius-card);
+  --radius-xl: var(--radius-xl);
+  --radius-pill: var(--radius-pill);
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-menu: var(--shadow-menu);
+}
