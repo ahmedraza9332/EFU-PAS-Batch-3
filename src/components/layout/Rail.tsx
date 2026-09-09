@@ -51,6 +51,36 @@ export default function Rail({ title, groups }: RailProps) {
               </div>
               {group.items.map((item) => {
                 const active = pathname === item.href;
+                const badge = item.count && (
+                  item.countTone === "amber" || item.countTone === "green" ? (
+                    <span
+                      className={`rounded-(--radius-pill) px-2 py-[1px] font-(family-name:--font-mono) text-[10.5px] font-medium ${
+                        item.countTone === "green"
+                          ? "bg-(--color-green-tint) text-(--color-green-ink)"
+                          : "bg-(--color-amber-tint) text-(--color-amber-ink)"
+                      }`}
+                    >
+                      {item.count}
+                    </span>
+                  ) : (
+                    <span className="font-(family-name:--font-mono) text-[10.5px] font-medium text-(--color-mute)">
+                      {item.count}
+                    </span>
+                  )
+                );
+
+                if (item.disabled) {
+                  return (
+                    <div
+                      key={item.label}
+                      className="flex cursor-not-allowed items-center gap-2 rounded-(--radius-md) border-l-[3px] border-transparent px-2.5 py-2 font-(family-name:--font-ui) text-[13.5px] text-(--color-faint) opacity-70"
+                    >
+                      <span className="flex-1 truncate">{item.label}</span>
+                      {badge}
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={item.href}
@@ -62,16 +92,7 @@ export default function Rail({ title, groups }: RailProps) {
                     }`}
                   >
                     <span className="flex-1 truncate">{item.label}</span>
-                    {item.count &&
-                      (item.countTone === "amber" ? (
-                        <span className="rounded-(--radius-pill) bg-(--color-amber-tint) px-2 py-[1px] font-(family-name:--font-mono) text-[10.5px] font-medium text-(--color-amber-ink)">
-                          {item.count}
-                        </span>
-                      ) : (
-                        <span className="font-(family-name:--font-mono) text-[10.5px] font-medium text-(--color-mute)">
-                          {item.count}
-                        </span>
-                      ))}
+                    {badge}
                   </Link>
                 );
               })}

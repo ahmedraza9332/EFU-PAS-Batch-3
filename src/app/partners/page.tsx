@@ -1,5 +1,5 @@
+import Link from "next/link";
 import Hero from "@/components/layout/Hero";
-import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Tag from "@/components/ui/Tag";
 import { Table, Th, Td, Tr } from "@/components/ui/Table";
@@ -17,7 +17,14 @@ export default function PartnersPage() {
         crumbs={[{ label: "Partners & Channels" }, { label: "Partner Profiles" }]}
         title="Partner Profiles"
         subtitle={`${PARTNERS.length} onboarded partners`}
-        actions={<Button variant="primary">+ Add Partner</Button>}
+        actions={
+          <Link
+            href="/partners/new"
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-(--radius-md) border-[1.5px] border-(--color-gold) bg-transparent px-4 py-[9.5px] font-(family-name:--font-ui) text-[12.5px] font-semibold text-(--color-ink) transition-all duration-150 hover:bg-(--color-gold)"
+          >
+            + Add Partner
+          </Link>
+        }
       />
 
       <section className="mt-4">
@@ -31,7 +38,13 @@ export default function PartnersPage() {
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {PARTNERS.map((p) => (
-            <PartnerPerformanceCard key={p.id} partner={p} />
+            <Link
+              key={p.id}
+              href={`/partners/${p.id}`}
+              className="block rounded-(--radius-card) transition-shadow duration-150 hover:shadow-(--shadow-md)"
+            >
+              <PartnerPerformanceCard partner={p} />
+            </Link>
           ))}
         </div>
       </section>
@@ -60,9 +73,12 @@ export default function PartnersPage() {
                   <Tag tone="ok">Live</Tag>
                 </Td>
                 <Td align="right">
-                  <button className="inline-flex items-center gap-1 whitespace-nowrap font-(family-name:--font-ui) text-[11.5px] font-semibold text-(--accent) hover:text-(--accent-ink) hover:underline">
+                  <Link
+                    href={`/partners/${p.id}`}
+                    className="inline-flex items-center gap-1 whitespace-nowrap font-(family-name:--font-ui) text-[11.5px] font-semibold text-(--accent) hover:text-(--accent-ink) hover:underline"
+                  >
                     View →
-                  </button>
+                  </Link>
                 </Td>
               </Tr>
             ))}
