@@ -120,7 +120,7 @@ export const sidenavData = {
     { label: "Registered", badge: "412", badgeColor: "teal", active: false, href: "/claims" },
     { label: "Documents pending", badge: "318", badgeColor: "red", active: false, href: "/claims/documents-pending" },
     { label: "Human Review", badge: "236", badgeColor: "default", active: false, href: "/claims/human-review" },
-    { label: "Payment", badge: "138", badgeColor: "default", active: false, href: "/claims/payment" },
+    { label: "Payment", badge: "130", badgeColor: "default", active: false, href: "/claims/payment" },
   ],
   controls: [
     { label: "SLA breaches", value: "27", color: "red" },
@@ -128,9 +128,9 @@ export const sidenavData = {
   ],
   claimStatus: [
     { label: "In Queue", value: "1,842", href: "/claims/in-queue" },
-    { label: "Documents Received", value: "1,648", href: "/claims/documents-received" },
+    { label: "Documents Received", value: "1,640", href: "/claims/documents-received" },
     { label: "Assessed", value: "1,390", href: "/claims/assessed" },
-    { label: "Decision", value: "185", href: "/claims/decision", highlight: true },
+    { label: "Decision", value: "188", href: "/claims/decision", highlight: false },
     { label: "Approved", value: "1,102", href: "/claims/approved" },
     { label: "Paid", value: "1,024", href: "/claims/paid" },
   ],
