@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EFU Life Insurance — Design System Architecture & Tokens Specification v4.2</title>
+  <meta name="description" content="Single-file interactive design system specification, design tokens architecture, typography scale, component anatomy, and WCAG accessibility audit for EFU Life Insurance.">
+
+  <!-- Google Fonts: Instrument Sans & IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       EFU LIFE INSURANCE DESIGN SYSTEM - DESIGN TOKENS ARCHITECTURE (:root)
+       Prefix: --efu-
+       ========================================================================== */
+    :root {
+      /* Brand Core Tokens */
+      --efu-teal: #017683;
+      --efu-teal-deep: #04525c;
+      --efu-teal-tint: #e3f0f1;
+
+      --efu-gold: #fab219;
+      --efu-gold-deep: #c88a00;
+      --efu-gold-tint: #fef3dc;
+
+      /* Multi-Module Accent Themes */
+      --efu-indigo: #2f4a8c;
+      --efu-indigo-tint: #e8ecf7;
+      --efu-indigo-ink: #1f2f5c;
+
+      --efu-violet: #7a4a9e;
+      --efu-violet-tint: #f1eaf7;
+      --efu-violet-ink: #5b3378;
+
+      --efu-amber: #c2632c;
+      --efu-amber-tint: #fbeee5;
+      --efu-amber-ink: #a4531f;
+
+      --efu-green: #1e7b52;
+      --efu-green-tint: #e6f3ec;
+      --efu-green-ink: #15603f;
+
+      --efu-red: #b0322b;
+      --efu-red-tint: #f9e8e7;
+      --efu-red-ink: #8a2620;
+      --efu-danger-body: #7a2a25;
+      --efu-danger-border: #f0cfcd;
+
+      /* Ink & Neutral Palette */
+      --efu-ink: #12292d;
+      --efu-body: #3f5053;
+      --efu-mute: #7b8a8c;
+      --efu-faint: #a3adae;
+
+      /* Surface & Elevation Palette */
+      --efu-canvas: #f7f7f5;
+      --efu-surface: #ffffff;
+      --efu-panel: #f7f9f9;
+      --efu-row-hover: #f5f7f7;
+      --efu-chip: #f2f4f4;
+
+      /* Borders & Dividers */
+      --efu-line: #e7eaea;
+      --efu-hair: #eef1f1;
+      --efu-border-input: #d4dedf;
+      --efu-border-field: #e0e5e5;
+      --efu-border-dashed: #c9d3d4;
+      --efu-brand-sub: #5d6d70;
+      --efu-brand-faint: #c3cccd;
+      --efu-arrow: #b6bfc0;
+
+      /* Typography Tokens */
+      --efu-font-ui: 'Instrument Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --efu-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --efu-font-rtl: 'Noto Naskh Arabic', 'Instrument Sans', sans-serif;
+
+      /* Corner Radius Scale */
+      --efu-radius-mark: 3px;
+      --efu-radius-xs: 5px;
+      --efu-radius-sm: 7px;
+      --efu-radius-md: 8px;
+      --efu-radius-lg: 10px;
+      --efu-radius-card: 12px;
+      --efu-radius-xl: 14px;
+      --efu-radius-pill: 20px;
+      --efu-radius-full: 9999px;
+
+      /* Shadow & Depth Hierarchy */
+      --efu-shadow-xs: 0 1px 2px rgba(20, 40, 45, 0.09);
+      --efu-shadow-sm: 0 1px 2px rgba(11, 43, 47, 0.05);
+      --efu-shadow-md: 0 8px 22px rgba(11, 43, 47, 0.08);
+      --efu-shadow-lg: 0 12px 28px rgba(20, 40, 45, 0.14);
+      --efu-shadow-menu: 0 12px 30px rgba(11, 43, 47, 0.15);
+      --efu-focus-ring: 0 0 0 3px rgba(1, 118, 131, 0.25);
+
+      /* Motion & Transitions */
+      --efu-ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --efu-ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --efu-dur-fast: 0.15s;
+      --efu-dur-base: 0.16s;
+      --efu-dur-panel: 0.28s;
+
+      /* Layout Dimensions */
+      --efu-control-sm: 30px;
+      --efu-control-md: 42px;
+      --efu-control-lg: 48px;
+      --efu-header-height: 64px;
+      --efu-container-max: 1380px;
+
+      /* Active Accent (Default Teal) */
+      --efu-accent: var(--efu-teal);
+      --efu-tint: var(--efu-teal-tint);
+      --efu-accent-ink: var(--efu-teal-deep);
+    }
+
+    /* System Theme Overrides */
+    [data-accent="indigo"] { --efu-accent: var(--efu-indigo); --efu-tint: var(--efu-indigo-tint); --efu-accent-ink: var(--efu-indigo-ink); }
+    [data-accent="violet"] { --efu-accent: var(--efu-violet); --efu-tint: var(--efu-violet-tint); --efu-accent-ink: var(--efu-violet-ink); }
+    [data-accent="amber"]  { --efu-accent: var(--efu-amber);  --efu-tint: var(--efu-amber-tint);  --efu-accent-ink: var(--efu-amber-ink); }
+    [data-accent="green"]  { --efu-accent: var(--efu-green);  --efu-tint: var(--efu-green-tint);  --efu-accent-ink: var(--efu-green-ink); }
+    [data-accent="red"]    { --efu-accent: var(--efu-red);    --efu-tint: var(--efu-red-tint);    --efu-accent-ink: var(--efu-red-ink); }
+
+    /* RTL Support */
+    [dir="rtl"] {
+      font-family: var(--efu-font-rtl);
+    }
+
+    /* Accessibility Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ==========================================================================
+       DOCUMENTATION CHROME STYLES
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: var(--efu-font-ui);
+      background-color: var(--efu-canvas);
+      color: var(--efu-ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Sticky Navigation Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--efu-header-height);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--efu-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-inline: 24px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--efu-ink);
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--efu-radius-md);
+      background: linear-gradient(135deg, var(--efu-teal-deep), var(--efu-teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: var(--efu-shadow-xs);
+    }
+
+    .brand-title-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--efu-mute);
+      font-family: var(--efu-font-mono);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-link {
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--efu-body);
+      text-decoration: none;
+      border-radius: var(--efu-radius-sm);
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .nav-link:hover, .nav-link:focus-visible {
+      color: var(--efu-teal);
+      background-color: var(--efu-teal-tint);
+      outline: none;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-toggle {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-border-input);
+      color: var(--efu-body);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--efu-radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .btn-toggle:hover {
+      border-color: var(--efu-teal);
+      color: var(--efu-teal);
+      background-color: var(--efu-teal-tint);
+    }
+
+    .version-badge {
+      font-family: var(--efu-font-mono);
+      font-size: 11px;
+      background: var(--efu-gold-tint);
+      color: var(--efu-gold-deep);
+      border: 1px solid rgba(250, 178, 25, 0.4);
+      padding: 3px 8px;
+      border-radius: var(--efu-radius-pill);
+      font-weight: 600;
+    }
+
+    /* Container & Layout */
+    .container {
+      max-width: var(--efu-container-max);
+      margin-inline: auto;
+      padding-inline: 28px;
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding-block: 56px 40px;
+      border-bottom: 1px solid var(--efu-line);
+      background: linear-gradient(180deg, #ffffff 0%, var(--efu-canvas) 100%);
+    }
+
+    .hero-content {
+      max-width: 860px;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--efu-ink);
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      color: var(--efu-teal);
+      background: linear-gradient(135deg, var(--efu-teal), var(--efu-indigo));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-narrative {
+      font-size: 16px;
+      color: var(--efu-body);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .pill-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      padding: 6px 14px;
+      border-radius: var(--efu-radius-pill);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--efu-body);
+      box-shadow: var(--efu-shadow-xs);
+    }
+
+    .meta-pill strong {
+      color: var(--efu-ink);
+      font-weight: 700;
+    }
+
+    .color-stack-bar {
+      display: flex;
+      height: 14px;
+      border-radius: var(--efu-radius-pill);
+      overflow: hidden;
+      box-shadow: var(--efu-shadow-xs);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .stack-segment {
+      flex: 1;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Section Component Architecture */
+    .doc-section {
+      padding-block: 56px;
+      border-bottom: 1px solid var(--efu-line);
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--efu-ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-desc {
+      font-size: 14.5px;
+      color: var(--efu-body);
+      max-width: 720px;
+      margin-top: 6px;
+    }
+
+    .section-tag {
+      font-family: var(--efu-font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--efu-teal);
+      background: var(--efu-teal-tint);
+      padding: 4px 10px;
+      border-radius: var(--efu-radius-sm);
+      font-weight: 600;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .top-bar { padding-inline: 16px; }
+      .nav-links { display: none; }
+    }
+
+    /* Cards & Panels */
+    .doc-card {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      border-radius: var(--efu-radius-card);
+      padding: 24px;
+      box-shadow: var(--efu-shadow-xs);
+      transition: box-shadow var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .doc-card:hover {
+      box-shadow: var(--efu-shadow-sm);
+    }
+
+    /* Filter / Search Control Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      background: var(--efu-panel);
+      padding: 12px 18px;
+      border-radius: var(--efu-radius-lg);
+      border: 1px solid var(--efu-line);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--efu-body);
+      border-radius: var(--efu-radius-pill);
+      cursor: pointer;
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .filter-btn:hover {
+      color: var(--efu-ink);
+      background: var(--efu-chip);
+    }
+
+    .filter-btn.active {
+      background: var(--efu-ink);
+      color: #fff;
+    }
+
+    .search-input {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-border-input);
+      border-radius: var(--efu-radius-md);
+      padding: 7px 14px;
+      font-size: 13px;
+      font-family: var(--efu-font-ui);
+      color: var(--efu-ink);
+      width: 260px;
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--efu-teal);
+      box-shadow: var(--efu-focus-ring);
+    }
+
+    /* Color Swatch Card */
+    .swatch-card {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      border-radius: var(--efu-radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--efu-shadow-xs);
+      position: relative;
+    }
+
+    .swatch-preview {
+      height: 110px;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+
+    .copy-hex-btn {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(0,0,0,0.1);
+      padding: 4px 8px;
+      border-radius: var(--efu-radius-xs);
+      font-family: var(--efu-font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--efu-ink);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .swatch-card:hover .copy-hex-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .swatch-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .swatch-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--efu-ink);
+    }
+
+    .swatch-var {
+      font-family: var(--efu-font-mono);
+      font-size: 11.5px;
+      color: var(--efu-teal);
+      word-break: break-all;
+    }
+
+    .swatch-role {
+      font-size: 12px;
+      color: var(--efu-body);
+      line-height: 1.4;
+    }
+
+    .swatch-footer {
+      margin-top: 8px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--efu-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .wcag-badge {
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--efu-font-mono);
+      padding: 2px 7px;
+      border-radius: var(--efu-radius-xs);
+      text-transform: uppercase;
+    }
+
+    .wcag-pass { background: var(--efu-green-tint); color: var(--efu-green-ink); }
+    .wcag-large { background: var(--efu-gold-tint); color: var(--efu-gold-deep); }
+    .wcag-fail { background: var(--efu-red-tint); color: var(--efu-red-ink); }
+    .wcag-nontext { background: var(--efu-chip); color: var(--efu-mute); }
+
+    .deprecation-flag {
+      font-size: 10px;
+      color: var(--efu-amber-ink);
+      background: var(--efu-amber-tint);
+      padding: 2px 6px;
+      border-radius: var(--efu-radius-mark);
+      font-weight: 600;
+    }
+
+    /* Excluded Colors Box */
+    .excluded-box {
+      background: linear-gradient(135deg, #fbfbfb 0%, #f4f6f6 100%);
+      border: 1px dashed var(--efu-border-dashed);
+      border-radius: var(--efu-radius-card);
+      padding: 20px 24px;
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .excluded-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--efu-ink);
+    }
+
+    .excluded-desc {
+      font-size: 12.5px;
+      color: var(--efu-body);
+    }
+
+    .excluded-swatches {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .excluded-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      padding: 4px 10px;
+      border-radius: var(--efu-radius-sm);
+      font-size: 11px;
+      font-family: var(--efu-font-mono);
+    }
+
+    .excluded-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Pairing Do's and Don'ts */
+    .dos-donts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .pairing-card {
+      border-radius: var(--efu-radius-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-do {
+      background: #f4fbf7;
+      border: 1.5px solid #bcead0;
+    }
+
+    .card-dont {
+      background: #fdf5f5;
+      border: 1.5px solid #f6c8c6;
+    }
+
+    .pairing-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .pairing-header.do-text { color: var(--efu-green-ink); }
+    .pairing-header.dont-text { color: var(--efu-red-ink); }
+
+    .pairing-demo {
+      padding: 24px;
+      border-radius: var(--efu-radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: var(--efu-shadow-xs);
+    }
+
+    /* Contrast Audit Table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--efu-surface);
+      border-radius: var(--efu-radius-card);
+      overflow: hidden;
+      box-shadow: var(--efu-shadow-xs);
+      border: 1px solid var(--efu-line);
+      font-size: 13px;
+    }
+
+    .spec-table th {
+      background: var(--efu-panel);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--efu-ink);
+      border-bottom: 1px solid var(--efu-line);
+    }
+
+    .spec-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--efu-hair);
+      color: var(--efu-body);
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .spec-table tr:hover td {
+      background: var(--efu-row-hover);
+    }
+
+    .contrast-sample {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: var(--efu-radius-sm);
+      font-weight: 600;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* Typography Specimens */
+    .type-specimen-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .type-row {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      border-radius: var(--efu-radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .type-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--efu-font-mono);
+      font-size: 12px;
+      color: var(--efu-mute);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--efu-hair);
+    }
+
+    .type-meta strong {
+      color: var(--efu-teal);
+    }
+
+    .type-preview {
+      color: var(--efu-ink);
+      overflow-wrap: break-word;
+    }
+
+    .type-tester-box {
+      margin-top: 24px;
+      background: var(--efu-panel);
+      padding: 20px;
+      border-radius: var(--efu-radius-card);
+      border: 1px solid var(--efu-line);
+    }
+
+    .type-tester-input {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-family: var(--efu-font-ui);
+      border: 1px solid var(--efu-border-input);
+      border-radius: var(--efu-radius-md);
+      background: var(--efu-surface);
+      color: var(--efu-ink);
+      margin-top: 10px;
+    }
+
+    /* Spacing & Radius Visualizers */
+    .space-visualizer-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .space-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--efu-surface);
+      padding: 12px 18px;
+      border-radius: var(--efu-radius-md);
+      border: 1px solid var(--efu-line);
+    }
+
+    .space-label {
+      width: 100px;
+      font-family: var(--efu-font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--efu-ink);
+    }
+
+    .space-bar-track {
+      flex: 1;
+      background: var(--efu-panel);
+      height: 24px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 2px;
+    }
+
+    .space-bar-fill {
+      background: var(--efu-teal);
+      height: 100%;
+      border-radius: 3px;
+      min-width: 2px;
+    }
+
+    .space-px {
+      width: 60px;
+      text-align: right;
+      font-family: var(--efu-font-mono);
+      font-size: 12px;
+      color: var(--efu-mute);
+    }
+
+    /* Corner Radii Grid */
+    .radius-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 16px;
+    }
+
+    .radius-box {
+      background: var(--efu-teal-tint);
+      border: 2px solid var(--efu-teal);
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .radius-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--efu-teal-deep);
+    }
+
+    .radius-val {
+      font-family: var(--efu-font-mono);
+      font-size: 11px;
+      color: var(--efu-teal);
+    }
+
+    /* Elevation Depth Section */
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .shadow-card {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      border-radius: var(--efu-radius-card);
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      transition: transform var(--efu-dur-fast) var(--efu-ease);
+    }
+
+    .shadow-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       COMPONENT SPECIMENS & LIVE DEMOS
+       ========================================================================== */
+    .component-demo-box {
+      background: var(--efu-surface);
+      border: 1px solid var(--efu-line);
+      border-radius: var(--efu-radius-card);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--efu-shadow-xs);
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-block: 12px;
+    }
+
+    /* Button Tokens & Variants */
+    .btn-efu {
+      font-family: var(--efu-font-ui);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      border-radius: var(--efu-radius-md);
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+      cursor: pointer;
+      outline: none;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+    }
+
+    .btn-efu-md {
+      padding: 9.5px 18px;
+      font-size: 13px;
+      height: var(--efu-control-md);
+    }
+
+    .btn-efu-sm {
+      padding: 6.5px 14px;
+      font-size: 12px;
+      height: var(--efu-control-sm);
+    }
+
+    .btn-primary {
+      border-color: var(--efu-gold);
+      background-color: transparent;
+      color: var(--efu-ink);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--efu-gold);
+    }
+
+    .btn-secondary {
+      border-color: var(--efu-border-input);
+      background-color: transparent;
+      color: var(--efu-body);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--efu-gold-tint);
+      border-color: var(--efu-gold);
+    }
+
+    .btn-action {
+      background-color: var(--efu-teal);
+      color: #ffffff;
+      border-color: var(--efu-teal);
+    }
+
+    .btn-action:hover {
+      background-color: var(--efu-teal-deep);
+      border-color: var(--efu-teal-deep);
+    }
+
+    .btn-danger {
+      border-color: var(--efu-red);
+      background-color: transparent;
+      color: var(--efu-red-ink);
+    }
+
+    .btn-danger:hover {
+      background-color: var(--efu-red);
+      color: #ffffff;
+    }
+
+    .btn-pill {
+      border-radius: var(--efu-radius-pill);
+    }
+
+    .btn-efu:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-efu:focus-visible {
+      box-shadow: var(--efu-focus-ring);
+    }
+
+    /* Form Fields */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .form-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--efu-ink);
+    }
+
+    .form-control {
+      font-family: var(--efu-font-ui);
+      font-size: 13.5px;
+      padding: 10px 14px;
+      border-radius: var(--efu-radius-md);
+      border: 1px solid var(--efu-border-field);
+      background: var(--efu-surface);
+      color: var(--efu-ink);
+      transition: all var(--efu-dur-fast) var(--efu-ease);
+      width: 100%;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--efu-teal);
+      box-shadow: var(--efu-focus-ring);
+    }
+
+    .form-control.is-invalid {
+      border-color: var(--efu-red);
+      background-color: var(--efu-red-tint);
+    }
+
+    .form-hint {
+      font-size: 11.5px;
+      color: var(--efu-mute);
+    }
+
+    .form-hint.error-text {
+      color: var(--efu-red-ink);
+      font-weight: 600;
+    }
+
+    /* Tags & Chips */
+    .efu-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      border-radius: var(--efu-radius-pill);
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tag-ok { background: var(--efu-green-tint); color: var(--efu-green-ink); }
+    .tag-warn { background: var(--efu-amber-tint); color: var(--efu-amber-ink); }
+    .tag-err { background: var(--efu-red-tint); color: var(--efu-red-ink); }
+    .tag-neutral { background: var(--efu-chip); color: var(--efu-mute); }
+
+    .efu-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--efu-panel);
+      border: 1px solid var(--efu-line);
+      padding: 6px 14px;
+      border-radius: var(--efu-radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--efu-body);
+      cursor: pointer;
+    }
+
+    /* Dark Surface Workflow Demo Context */
+    .dark-surface-demo {
+      background: var(--efu-ink);
+      color: #ffffff;
+      border-radius: var(--efu-radius-card);
+      padding: 32px;
+      margin-top: 24px;
+      box-shadow: var(--efu-shadow-lg);
+    }
+
+    .skeleton-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--efu-radius-sm);
+      animation: skeleton-pulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes skeleton-pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0.5; }
+    }
+
+    .progress-bar-wrap {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: var(--efu-radius-pill);
+      overflow: hidden;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--efu-gold), var(--efu-teal));
+      width: 68%;
+      border-radius: var(--efu-radius-pill);
+    }
+
+    /* Code Deliverable Display */
+    .code-block {
+      background: #0d1b1e;
+      color: #a3c2c6;
+      font-family: var(--efu-font-mono);
+      font-size: 12.5px;
+      padding: 20px;
+      border-radius: var(--efu-radius-card);
+      overflow-x: auto;
+      line-height: 1.6;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .code-block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .toast-notice {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--efu-ink);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--efu-radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--efu-shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s var(--efu-ease-pop);
+      z-index: 1000;
+    }
+
+    .toast-notice.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Bar -->
+  <header class="top-bar">
+    <a href="#" class="brand-wrap">
+      <div class="brand-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="brand-title-wrap">
+        <span class="brand-name">EFU Life Insurance</span>
+        <span class="brand-sub">PAS Design System Documentation</span>
+      </div>
+    </a>
+
+    <nav aria-label="Main Documentation Navigation">
+      <ul class="nav-links">
+        <li><a href="#color" class="nav-link">Colors</a></li>
+        <li><a href="#pairing" class="nav-link">Pairings</a></li>
+        <li><a href="#type" class="nav-link">Typography</a></li>
+        <li><a href="#space" class="nav-link">Space & Shape</a></li>
+        <li><a href="#components" class="nav-link">Components</a></li>
+        <li><a href="#handoff" class="nav-link">Governance</a></li>
+      </ul>
+    </nav>
+
+    <div class="top-controls">
+      <span class="version-badge">v4.2.0 Token Spec</span>
+      <button class="btn-toggle" id="rtlToggleBtn" onclick="toggleRTL()">
+        🌐 <span id="rtlBtnLabel">RTL: Off</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">EFU Life Insurance <span>Design System</span> Specification</h1>
+        <p class="hero-narrative">
+          The unified front-end design architecture and token system powering EFU Life's Policy Administration System (PAS). Built for high trust, clarity, compliance, and seamless cross-module multi-accent customization (Partners, Policies, Billing, Claims).
+        </p>
+
+        <div class="pill-bar">
+          <div class="meta-pill">🎨 Total Color Tokens: <strong>34 Tokens</strong></div>
+          <div class="meta-pill">🔤 Type Scale Steps: <strong>9 Hierarchy Steps</strong></div>
+          <div class="meta-pill">📐 Radius Tokens: <strong>9 Radii Hierarchy</strong></div>
+          <div class="meta-pill">♿ Accessibility Floor: <strong>WCAG 2.1 Level AA Pass</strong></div>
+          <div class="meta-pill">🌐 Multilingual: <strong>Native LTR & RTL Stack</strong></div>
+        </div>
+
+        <!-- Quick Visual Color Stack Bar -->
+        <div class="color-stack-bar" title="EFU Brand & Accent Color Distribution Spectrum">
+          <div class="stack-segment" style="background: var(--efu-teal); flex: 2;" title="Teal Brand Core"></div>
+          <div class="stack-segment" style="background: var(--efu-teal-deep); flex: 1.5;" title="Deep Teal Ink"></div>
+          <div class="stack-segment" style="background: var(--efu-gold); flex: 1.5;" title="EFU Gold Accent"></div>
+          <div class="stack-segment" style="background: var(--efu-indigo); flex: 1;" title="Indigo Accent"></div>
+          <div class="stack-segment" style="background: var(--efu-violet); flex: 1;" title="Violet Accent"></div>
+          <div class="stack-segment" style="background: var(--efu-amber); flex: 1;" title="Amber Warning"></div>
+          <div class="stack-segment" style="background: var(--efu-green); flex: 1;" title="Green Success"></div>
+          <div class="stack-segment" style="background: var(--efu-red); flex: 1;" title="Red Error"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- 1. COLOR & PALETTE SECTION -->
+    <section id="color" class="doc-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Token Architecture 01</span>
+          <h2 class="section-title">Color Palette & Tokens Architecture</h2>
+          <p class="section-desc">Extracted CSS custom properties for brand core, accent themes, surface states, ink typography, and status feedback.</p>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-tabs" id="colorFilterTabs">
+          <button class="filter-btn active" onclick="filterColors('all', this)">All Tokens (34)</button>
+          <button class="filter-btn" onclick="filterColors('brand', this)">Brand & Primary</button>
+          <button class="filter-btn" onclick="filterColors('accents', this)">Accents</button>
+          <button class="filter-btn" onclick="filterColors('neutral', this)">Ink & Neutrals</button>
+          <button class="filter-btn" onclick="filterColors('surface', this)">Surfaces & Borders</button>
+          <button class="filter-btn" onclick="filterColors('status', this)">Status & Feedback</button>
+        </div>
+        <input type="text" id="colorSearch" class="search-input" placeholder="Search hex, name or var..." oninput="searchSwatches()">
+      </div>
+
+      <!-- Swatch Grid (Dynamic JS Rendered) -->
+      <div class="grid-4" id="swatchGrid">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Excluded Colors Box -->
+      <div class="excluded-box">
+        <div>
+          <div class="excluded-title">Excluded Legacy & Non-UI Brand Assets</div>
+          <div class="excluded-desc">Isolated third-party logos, partner badges, and legacy marketing gradients not used as global UI tokens.</div>
+        </div>
+        <div class="excluded-swatches">
+          <div class="excluded-chip"><span class="excluded-dot" style="background: #003366;"></span> Legacy Navy #003366</div>
+          <div class="excluded-chip"><span class="excluded-dot" style="background: #e6a100;"></span> Print Gold #e6a100</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PAIRING & CONTRAST AUDIT -->
+    <section id="pairing" class="doc-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Accessibility & Audit 02</span>
+          <h2 class="section-title">Pairing Permissions & Contrast Audit</h2>
+          <p class="section-desc">Side-by-side rules for text readability, approved background pairs, and WCAG AA contrast compliance matrix.</p>
+        </div>
+      </div>
+
+      <!-- Do's and Don'ts Grid -->
+      <div class="dos-donts-grid">
+        <div class="pairing-card card-do">
+          <div class="pairing-header do-text">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            DO: High Contrast Approved Pairings
+          </div>
+          <div class="pairing-demo" style="background: var(--efu-teal-tint); color: var(--efu-teal-deep);">
+            Teal Deep Ink on Teal Tint Background (Ratio 8.4:1 — AAA Pass)
+          </div>
+          <div class="pairing-demo" style="background: var(--efu-surface); color: var(--efu-ink); border: 1px solid var(--efu-line);">
+            Primary Ink (#12292d) on White Surface (Ratio 15.2:1 — AAA Pass)
+          </div>
+        </div>
+
+        <div class="pairing-card card-dont">
+          <div class="pairing-header dont-text">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            DON'T: Forbidden Low Contrast Combinations
+          </div>
+          <div class="pairing-demo" style="background: var(--efu-surface); color: var(--efu-gold); border: 1px solid var(--efu-line);">
+            EFU Gold Text on White Surface (Ratio 1.6:1 — Fail)
+          </div>
+          <div class="pairing-demo" style="background: var(--efu-surface); color: var(--efu-faint); border: 1px solid var(--efu-line);">
+            Faint Mute Text for Body Content (Ratio 2.3:1 — Fail)
+          </div>
+        </div>
+      </div>
+
+      <!-- Approved Contrast Table -->
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Background Token</th>
+            <th>Text / Foreground Token</th>
+            <th>Live Sample</th>
+            <th>Contrast Ratio</th>
+            <th>WCAG Verdict</th>
+            <th>Approved Usage Scenario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>--efu-surface</code> (#FFFFFF)</td>
+            <td><code>--efu-ink</code> (#12292d)</td>
+            <td><div class="contrast-sample" style="background: #ffffff; color: #12292d;">Sample Text</div></td>
+            <td><strong>15.2 : 1</strong></td>
+            <td><span class="wcag-badge wcag-pass">AAA Pass</span></td>
+            <td>Primary headings, body text, data table content</td>
+          </tr>
+          <tr>
+            <td><code>--efu-teal-tint</code> (#E3F0F1)</td>
+            <td><code>--efu-teal-deep</code> (#04525C)</td>
+            <td><div class="contrast-sample" style="background: #e3f0f1; color: #04525c;">Teal Deep</div></td>
+            <td><strong>8.4 : 1</strong></td>
+            <td><span class="wcag-badge wcag-pass">AAA Pass</span></td>
+            <td>Selected navigation states, active table row highlights</td>
+          </tr>
+          <tr>
+            <td><code>--efu-gold</code> (#FAB219)</td>
+            <td><code>--efu-ink</code> (#12292D)</td>
+            <td><div class="contrast-sample" style="background: #fab219; color: #12292d;">Gold Button</div></td>
+            <td><strong>10.8 : 1</strong></td>
+            <td><span class="wcag-badge wcag-pass">AAA Pass</span></td>
+            <td>Primary action buttons fill with dark text</td>
+          </tr>
+          <tr>
+            <td><code>--efu-red-tint</code> (#F9E8E7)</td>
+            <td><code>--efu-red-ink</code> (#8A2620)</td>
+            <td><div class="contrast-sample" style="background: #f9e8e7; color: #8a2620;">Danger Alert</div></td>
+            <td><strong>6.9 : 1</strong></td>
+            <td><span class="wcag-badge wcag-pass">AA Pass</span></td>
+            <td>Error callouts, status pads, validation badges</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 3. TYPOGRAPHY SYSTEM SECTION -->
+    <section id="type" class="doc-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Typography 03</span>
+          <h2 class="section-title">Typography System & Type Scale</h2>
+          <p class="section-desc">Harmonized 9-step type scale powered by Instrument Sans for interface UI and IBM Plex Mono for policy IDs & financial figures.</p>
+        </div>
+      </div>
+
+      <div class="type-specimen-list">
+        <!-- Display -->
+        <div class="type-row">
+          <div class="type-meta">
+            <span>Token: <strong>--efu-type-display</strong></span>
+            <span>Size: <strong>44px / 2.75rem</strong></span>
+            <span>Weight: <strong>800 (Bold)</strong></span>
+            <span>Line-Height: <strong>1.15</strong></span>
+          </div>
+          <div class="type-preview" style="font-size: 44px; font-weight: 800; line-height: 1.15;">
+            EFU Life Policy Administration
+          </div>
+        </div>
+
+        <!-- Title XL -->
+        <div class="type-row">
+          <div class="type-meta">
+            <span>Token: <strong>--efu-type-title-xl</strong></span>
+            <span>Size: <strong>32px / 2.0rem</strong></span>
+            <span>Weight: <strong>700 (Bold)</strong></span>
+            <span>Line-Height: 1.2</span>
+          </div>
+          <div class="type-preview" style="font-size: 32px; font-weight: 700; line-height: 1.2;">
+            Partner & Coverage Dashboard
+          </div>
+        </div>
+
+        <!-- Title MD -->
+        <div class="type-row">
+          <div class="type-meta">
+            <span>Token: <strong>--efu-type-title-md</strong></span>
+            <span>Size: <strong>20px / 1.25rem</strong></span>
+            <span>Weight: <strong>600 (SemiBold)</strong></span>
+            <span>Line-Height: 1.3</span>
+          </div>
+          <div class="type-preview" style="font-size: 20px; font-weight: 600; line-height: 1.3;">
+            Policy Premium Calculation & Endorsement Summary
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="type-row">
+          <div class="type-meta">
+            <span>Token: <strong>--efu-type-body</strong></span>
+            <span>Size: <strong>14px / 0.875rem</strong></span>
+            <span>Weight: <strong>400 (Regular)</strong></span>
+            <span>Line-Height: 1.5</span>
+          </div>
+          <div class="type-preview" style="font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--efu-body);">
+            Ensure all insured individual details match official CNIC documentation prior to binding policy contracts.
+          </div>
+        </div>
+
+        <!-- Mono Data -->
+        <div class="type-row">
+          <div class="type-meta">
+            <span>Token: <strong>--efu-font-mono (Tabular Data)</strong></span>
+            <span>Size: <strong>13px / 0.8125rem</strong></span>
+            <span>Weight: <strong>500 (Medium)</strong></span>
+            <span>Numeric: <strong>tabular-nums</strong></span>
+          </div>
+          <div class="type-preview" style="font-family: var(--efu-font-mono); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums;">
+            POL-2026-994821 | Premium PKRs: 1,450,000.00 | Fee: 2.5%
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Type Tester Box -->
+      <div class="type-tester-box">
+        <label class="form-label" for="typeInput">Live Interactive Type Specimen Sandbox:</label>
+        <input type="text" id="typeInput" class="type-tester-input" value="EFU Life Insurance — Protecting Families for Generations." oninput="updateTypePreview(this.value)">
+      </div>
+    </section>
+
+    <!-- 4. SPACE, SHAPE & ELEVATION -->
+    <section id="space" class="doc-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Layout & Spatial 04</span>
+          <h2 class="section-title">Space Scale, Corner Radii & Shadows</h2>
+          <p class="section-desc">4px base spatial unit, contextual border radius hierarchy, and tinted elevation shadow systems.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Spacing Scale Visualizer -->
+        <div class="doc-card">
+          <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--efu-ink);">Spacing Scale (4px Base Multipliers)</h3>
+          <div class="space-visualizer-grid">
+            <div class="space-item"><span class="space-label">2px (0.5x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 2px;"></div></div><span class="space-px">2px</span></div>
+            <div class="space-item"><span class="space-label">4px (1x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 4px;"></div></div><span class="space-px">4px</span></div>
+            <div class="space-item"><span class="space-label">8px (2x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 8px;"></div></div><span class="space-px">8px</span></div>
+            <div class="space-item"><span class="space-label">12px (3x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 12px;"></div></div><span class="space-px">12px</span></div>
+            <div class="space-item"><span class="space-label">16px (4x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 16px;"></div></div><span class="space-px">16px</span></div>
+            <div class="space-item"><span class="space-label">24px (6x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 24px;"></div></div><span class="space-px">24px</span></div>
+            <div class="space-item"><span class="space-label">32px (8x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 32px;"></div></div><span class="space-px">32px</span></div>
+            <div class="space-item"><span class="space-label">48px (12x)</span><div class="space-bar-track"><div class="space-bar-fill" style="width: 48px;"></div></div><span class="space-px">48px</span></div>
+          </div>
+        </div>
+
+        <!-- Corner Radii Scale -->
+        <div class="doc-card">
+          <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--efu-ink);">Radius Hierarchy Scale</h3>
+          <div class="radius-grid">
+            <div class="radius-box" style="border-radius: var(--efu-radius-mark);"><span class="radius-name">Mark</span><span class="radius-val">3px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-xs);"><span class="radius-name">XS</span><span class="radius-val">5px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-sm);"><span class="radius-name">SM</span><span class="radius-val">7px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-md);"><span class="radius-name">MD</span><span class="radius-val">8px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-lg);"><span class="radius-name">LG</span><span class="radius-val">10px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-card);"><span class="radius-name">Card</span><span class="radius-val">12px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-xl);"><span class="radius-name">XL</span><span class="radius-val">14px</span></div>
+            <div class="radius-box" style="border-radius: var(--efu-radius-pill);"><span class="radius-name">Pill</span><span class="radius-val">20px</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elevation & Shadows Depth Grid -->
+      <div style="margin-top: 28px;">
+        <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--efu-ink);">Elevation Depth & Shadows</h3>
+        <div class="shadow-grid">
+          <div class="shadow-card" style="box-shadow: var(--efu-shadow-xs);">
+            <strong>--efu-shadow-xs</strong>
+            <span style="font-size: 11px; color: var(--efu-mute);">Subtle inputs / cards</span>
+          </div>
+          <div class="shadow-card" style="box-shadow: var(--efu-shadow-sm);">
+            <strong>--efu-shadow-sm</strong>
+            <span style="font-size: 11px; color: var(--efu-mute);">Card hover / Raised bar</span>
+          </div>
+          <div class="shadow-card" style="box-shadow: var(--efu-shadow-md);">
+            <strong>--efu-shadow-md</strong>
+            <span style="font-size: 11px; color: var(--efu-mute);">Dropdowns & Floating actions</span>
+          </div>
+          <div class="shadow-card" style="box-shadow: var(--efu-shadow-lg);">
+            <strong>--efu-shadow-lg</strong>
+            <span style="font-size: 11px; color: var(--efu-mute);">Modals & Overlay Dialogs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. COMPONENT RECIPES & LIVE DEMOS -->
+    <section id="components" class="doc-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Interactive UI 05</span>
+          <h2 class="section-title">Component Recipes & Live Demos</h2>
+          <p class="section-desc">Production-grade interactive component specs for buttons, forms, status pads, and dark surface context.</p>
+        </div>
+      </div>
+
+      <!-- Button Component Suite -->
+      <div class="component-demo-box">
+        <h3 style="font-size: 16px; margin-bottom: 16px;">1. Button Matrix & States</h3>
+        <div class="component-row">
+          <button class="btn-efu btn-primary btn-efu-md">Primary Gold</button>
+          <button class="btn-efu btn-secondary btn-efu-md">Secondary Outline</button>
+          <button class="btn-efu btn-action btn-efu-md">Commit / Action Teal</button>
+          <button class="btn-efu btn-danger btn-efu-md">Danger Action</button>
+          <button class="btn-efu btn-primary btn-efu-md btn-pill">Pill Shape</button>
+          <button class="btn-efu btn-secondary btn-efu-md" disabled>Disabled State</button>
+        </div>
+      </div>
+
+      <!-- Form Inputs Suite -->
+      <div class="component-demo-box">
+        <h3 style="font-size: 16px; margin-bottom: 16px;">2. Form Fields & Validation States</h3>
+        <div class="component-row" style="align-items: flex-start;">
+          <div class="form-group">
+            <label class="form-label" for="polNum">Policy Holder CNIC</label>
+            <input type="text" id="polNum" class="form-control" placeholder="42101-1234567-1" value="42101-9876543-9">
+            <span class="form-hint">Must match NADRA verification record.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="polPlan">Insurance Plan</label>
+            <select id="polPlan" class="form-control">
+              <option>EFU Hemayah Super Wealth</option>
+              <option>EFU Life Takaful Savings</option>
+              <option>EFU Health Security</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="polErr">Endorsement Amount</label>
+            <input type="text" id="polErr" class="form-control is-invalid" value="-5,000" aria-describedby="errHint">
+            <span id="errHint" class="form-hint error-text">⚠️ Amount cannot be negative.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Chips & Badges -->
+      <div class="component-demo-box">
+        <h3 style="font-size: 16px; margin-bottom: 16px;">3. Status Pads, Tags & Chips</h3>
+        <div class="component-row">
+          <span class="efu-tag tag-ok">● Active Contract</span>
+          <span class="efu-tag tag-warn">● Pending Underwriting</span>
+          <span class="efu-tag tag-err">● Lapsed Policy</span>
+          <span class="efu-tag tag-neutral">● Draft Mode</span>
+          <div class="efu-chip">🏷️ Group Takaful</div>
+          <div class="efu-chip">🏷️ Bancassurance</div>
+        </div>
+      </div>
+
+      <!-- Dark Surface Context Demo -->
+      <div class="dark-surface-demo">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div>
+            <h4 style="font-size: 16px; font-weight: 700;">Claims Policy Vault — Dark Surface Context</h4>
+            <span style="font-size: 12px; opacity: 0.7;">High contrast dark canvas token: --efu-ink (#12292D)</span>
+          </div>
+          <span class="efu-tag tag-ok">System Online</span>
+        </div>
+
+        <div style="display: flex; gap: 16px; margin-bottom: 20px;">
+          <div class="skeleton-box" style="width: 140px; height: 38px;"></div>
+          <div class="skeleton-box" style="flex: 1; height: 38px;"></div>
+        </div>
+
+        <div style="font-size: 12px; margin-bottom: 6px; opacity: 0.8;">Policy Verification Scan Progress (68% Complete)</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. HANDOFF, CLEANUP & GOVERNANCE -->
+    <section id="handoff" class="doc-section">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Governance & Delivery 06</span>
+          <h2 class="section-title">Handoff, Token Consolidation & Governance</h2>
+          <p class="section-desc">Consolidated token list, duplicate elimination recommendations, and export specs for CSS & JSON.</p>
+        </div>
+      </div>
+
+      <!-- Token Consolidation Table -->
+      <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--efu-ink);">Token Deduplication & Consolidation Audit</h3>
+      <table class="spec-table" style="margin-bottom: 32px;">
+        <thead>
+          <tr>
+            <th>Extracted Hex Code</th>
+            <th>Raw Variable Names Found</th>
+            <th>Consolidation Verdict</th>
+            <th>Canonical Token Replacement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>#E0E5E5</code> vs <code>#E7EAEA</code></td>
+            <td><code>--color-border-field</code> / <code>--color-line</code></td>
+            <td><span class="deprecation-flag">Near Duplicate (0.8% Diff)</span></td>
+            <td>Consolidate both to <code>--efu-line: #E7EAEA</code></td>
+          </tr>
+          <tr>
+            <td><code>#EEF1F1</code> vs <code>#F2F4F4</code></td>
+            <td><code>--color-hair</code> / <code>--color-chip</code></td>
+            <td><span class="deprecation-flag">Near Duplicate</span></td>
+            <td>Consolidate surface tint borders to <code>--efu-hair: #EEF1F1</code></td>
+          </tr>
+          <tr>
+            <td><code>#3F5053</code> vs <code>#5D6D70</code></td>
+            <td><code>--color-body</code> / <code>--color-brand-sub</code></td>
+            <td><span class="wcag-badge wcag-pass">Keep Separate</span></td>
+            <td>Retain <code>--efu-body</code> for main readable text hierarchy</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Export Deliverable JSON Code Box -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="font-size: 16px; color: var(--efu-ink);">Production Deliverable: tokens.json</h3>
+        <button class="btn-toggle" onclick="copyTokensJSON()">📋 Copy JSON Specs</button>
+      </div>
+
+      <div class="code-block" id="jsonCodeBlock">
+        <div class="code-block-header">
+          <span>tokens.json</span>
+          <span>JSON Spec v4.2</span>
+        </div>
+<pre><code>{
+  "system": "EFU Life Insurance PAS Design System",
+  "version": "4.2.0",
+  "tokens": {
+    "brand": {
+      "teal": { "value": "#017683", "role": "Primary Brand Core" },
+      "tealDeep": { "value": "#04525c", "role": "Deep Brand Ink" },
+      "gold": { "value": "#fab219", "role": "Gold Action Accent" }
+    },
+    "accents": {
+      "indigo": { "value": "#2f4a8c" },
+      "violet": { "value": "#7a4a9e" },
+      "amber": { "value": "#c2632c" },
+      "green": { "value": "#1e7b52" },
+      "red": { "value": "#b0322b" }
+    },
+    "typography": {
+      "fontUi": "Instrument Sans, system-ui, sans-serif",
+      "fontMono": "IBM Plex Mono, monospace"
+    }
+  }
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background: #ffffff; border-top: 1px solid var(--efu-line); padding-block: 28px; text-align: center; margin-top: 60px; font-size: 13px; color: var(--efu-mute);">
+    <div class="container">
+      EFU Life Insurance Design System Specification Architecture v4.2.0 &bull; Built with standard HTML5, Vanilla CSS Custom Properties &amp; JS.
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notice">Copied to clipboard!</div>
+
+  <!-- JavaScript Dynamic Logic -->
+  <script>
+    // Master Token Data Array
+    const colorTokens = [
+      { name: "Teal Brand", var: "--efu-teal", hex: "#017683", role: "Core Brand Primary Accent", category: "brand", wcag: "pass", wcagText: "AAA Pass" },
+      { name: "Teal Deep", var: "--efu-teal-deep", hex: "#04525c", role: "Primary Deep Ink & Header", category: "brand", wcag: "pass", wcagText: "AAA Pass" },
+      { name: "Teal Tint", var: "--efu-teal-tint", hex: "#e3f0f1", role: "Active Highlight Surface", category: "brand", wcag: "nontext", wcagText: "Non-text" },
+      { name: "EFU Gold", var: "--efu-gold", hex: "#fab219", role: "Action Accent & Primary Buttons", category: "brand", wcag: "pass", wcagText: "AAA (w/ Ink)" },
+      { name: "Gold Deep", var: "--efu-gold-deep", hex: "#c88a00", role: "High-contrast Gold Text", category: "brand", wcag: "pass", wcagText: "AA Pass" },
+      { name: "Gold Tint", var: "--efu-gold-tint", hex: "#fef3dc", role: "Gold Surface & Hover state", category: "brand", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Indigo Accent", var: "--efu-indigo", hex: "#2f4a8c", role: "Policies Module Theme", category: "accents", wcag: "pass", wcagText: "AAA Pass" },
+      { name: "Indigo Tint", var: "--efu-indigo-tint", hex: "#e8ecf7", role: "Indigo Surface Tint", category: "accents", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Violet Accent", var: "--efu-violet", hex: "#7a4a9e", role: "Takaful / Special Module", category: "accents", wcag: "pass", wcagText: "AA Pass" },
+      { name: "Violet Tint", var: "--efu-violet-tint", hex: "#f1eaf7", role: "Violet Surface Tint", category: "accents", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Amber Accent", var: "--efu-amber", hex: "#c2632c", role: "Billing / Warning Accent", category: "accents", wcag: "pass", wcagText: "AA Pass" },
+      { name: "Amber Tint", var: "--efu-amber-tint", hex: "#fbeee5", role: "Warning Surface Tint", category: "accents", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Green Accent", var: "--efu-green", hex: "#1e7b52", role: "Success / Active Status", category: "accents", wcag: "pass", wcagText: "AA Pass" },
+      { name: "Green Tint", var: "--efu-green-tint", hex: "#e6f3ec", role: "Success Surface Tint", category: "accents", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Red Accent", var: "--efu-red", hex: "#b0322b", role: "Danger / Error Action", category: "accents", wcag: "pass", wcagText: "AA Pass" },
+      { name: "Red Tint", var: "--efu-red-tint", hex: "#f9e8e7", role: "Error Surface Tint", category: "status", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Ink Primary", var: "--efu-ink", hex: "#12292d", role: "Headings & High-contrast Text", category: "neutral", wcag: "pass", wcagText: "AAA Pass" },
+      { name: "Body Text", var: "--efu-body", hex: "#3f5053", role: "Default Body Content Text", category: "neutral", wcag: "pass", wcagText: "AAA Pass" },
+      { name: "Mute Text", var: "--efu-mute", hex: "#7b8a8c", role: "Secondary Labels & Captions", category: "neutral", wcag: "large", wcagText: "AA Large" },
+      { name: "Faint Mute", var: "--efu-faint", hex: "#a3adae", role: "Disabled Text & Icons", category: "neutral", wcag: "fail", wcagText: "Non-text" },
+      { name: "Canvas Backing", var: "--efu-canvas", hex: "#f7f7f5", role: "Global App Background", category: "surface", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Surface White", var: "--efu-surface", hex: "#ffffff", role: "Card & Modal Surface", category: "surface", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Panel Background", var: "--efu-panel", hex: "#f7f9f9", role: "Sidebar & Filter Bar Panel", category: "surface", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Border Line", var: "--efu-line", hex: "#e7eaea", role: "Card & Section Divider", category: "surface", wcag: "nontext", wcagText: "Non-text" },
+      { name: "Border Input", var: "--efu-border-input", hex: "#d4dedf", role: "Form Input Default Border", category: "surface", wcag: "nontext", wcagText: "Non-text" }
+    ];
+
+    // Render Swatches
+    function renderSwatches(items) {
+      const grid = document.getElementById("swatchGrid");
+      grid.innerHTML = "";
+
+      items.forEach(item => {
+        const isDarkHex = ["#12292d", "#04525c", "#1f2f5c", "#5b3378", "#a4531f", "#15603f", "#8a2620", "#b0322b", "#2f4a8c", "#017683", "#7a4a9e", "#c2632c", "#1e7b52", "#3f5053"].includes(item.hex.toLowerCase());
+        const cardHtml = `
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background: ${item.hex}; color: ${isDarkHex ? '#ffffff' : '#12292d'};">
+              <button class="copy-hex-btn" onclick="copyText('${item.hex}')">Copy ${item.hex}</button>
+            </div>
+            <div class="swatch-body">
+              <div class="swatch-name">${item.name}</div>
+              <div class="swatch-var">${item.var}</div>
+              <div class="swatch-role">${item.role}</div>
+              <div class="swatch-footer">
+                <span class="wcag-badge wcag-${item.wcag}">${item.wcagText}</span>
+                <span style="font-family: var(--efu-font-mono); font-size: 11px; color: var(--efu-mute);">${item.hex}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.insertAdjacentHTML("beforeend", cardHtml);
+      });
+    }
+
+    // Filter Color Swatches by Category
+    function filterColors(cat, btn) {
+      document.querySelectorAll('#colorFilterTabs .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (cat === 'all') {
+        renderSwatches(colorTokens);
+      } else {
+        const filtered = colorTokens.filter(t => t.category === cat);
+        renderSwatches(filtered);
+      }
+    }
+
+    // Search Swatches
+    function searchSwatches() {
+      const query = document.getElementById("colorSearch").value.toLowerCase();
+      const filtered = colorTokens.filter(t => 
+        t.name.toLowerCase().includes(query) ||
+        t.var.toLowerCase().includes(query) ||
+        t.hex.toLowerCase().includes(query) ||
+        t.role.toLowerCase().includes(query)
+      );
+      renderSwatches(filtered);
+    }
+
+    // Interactive Type Preview Update
+    function updateTypePreview(val) {
+      if (!val) val = "EFU Life Insurance — Protecting Families for Generations.";
+      document.querySelectorAll('.type-preview').forEach(el => {
+        if (!el.textContent.includes("POL-2026")) {
+          el.textContent = val;
+        }
+      });
+    }
+
+    // RTL Toggle
+    let isRTL = false;
+    function toggleRTL() {
+      isRTL = !isRTL;
+      document.documentElement.setAttribute("dir", isRTL ? "rtl" : "ltr");
+      document.getElementById("rtlBtnLabel").textContent = isRTL ? "RTL: On (Urdu/Arabic)" : "RTL: Off";
+      showToast(isRTL ? "Switched layout to Right-to-Left (RTL)" : "Switched layout to Left-to-Right (LTR)");
+    }
+
+    // Copy to Clipboard Utility
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Copied ${text} to clipboard!`);
+      });
+    }
+
+    function copyTokensJSON() {
+      const jsonText = document.querySelector("#jsonCodeBlock pre code").textContent;
+      navigator.clipboard.writeText(jsonText).then(() => {
+        showToast("Copied tokens.json specification to clipboard!");
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+    // Initialize on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      renderSwatches(colorTokens);
+    });
+  </script>
+</body>
+</html>
